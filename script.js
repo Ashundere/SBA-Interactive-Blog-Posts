@@ -127,20 +127,7 @@ if (event.target.classList.contains('remove-from-list')) {
 }
 })
 
-// const savePosts = arr =>{
-//     let savedPosts;
-//     try {
-//         savedPosts = JSON.parse(localStorage.getItem('savedPosts'))
-//     } catch (error) {
-//         console.error('Error parsing items from localStorage', e)
-//         savedPosts = null;
-//     }
-//     for(let i=0; i <= arr.length; i++){
-//         savedPosts.push(arr[i])
-//     }
-//     localStorage.setItem('savedPosts', JSON.stringify(savedPosts))
-//     console.log(localStorage.getItem('savedPosts'))
-// }
+
 const recollection = ()=>{
 
     for(let i=0; i <= recall.length; i++){
