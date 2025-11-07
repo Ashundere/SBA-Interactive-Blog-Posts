@@ -3,12 +3,19 @@
 posts=[]
 const titleInput = document.getElementById("title")
 const titleInputError = document.getElementById("titleInputError")
+const titleModal = document.getElementById("titleModal")
 const bodyInput = document.getElementById("bodyText")
 const bodyInputError = document.getElementById("bodyInputError")
+const bodyModal = document.getElementById("bodyTextModal")
 const submitBtn = document.getElementById("submitButton")
 const blogForm = document.getElementById("blog-form")
+const modalForm = document.getElementById("modal-blog-form")
 const template = document.getElementById("template")
 const postDisplay = document.getElementById("blog-posts-display")
+const modalUpdate = document.getElementById("modalForm")
+const updateBtn = document.getElementById("updateButton")
+
+
 buttonPressed = 0
 
 submitBtn.addEventListener("click",function(event){
@@ -52,7 +59,18 @@ const createBlogPost =()=>{
 }
 
 const updateBlogPost =()=>{
-
+    const postObject = {
+        title: titleModal.value,
+        body: bodyModal.value,
+        id: buttonPressed
+    }
+    posts.push(postObject)
+    const newBlogPost = document.createElement("div")
+    newBlogPost.setAttribute("id", buttonPressed)
+    const blogPostIndex = posts.findIndex(postObject => postObject.id == newBlogPost.id)
+    newBlogPost.innerHTML = `${posts[blogPostIndex].title}:<br>${posts[blogPostIndex].body}<br><button class="remove-from-list">Delete</button> <button class="edit">Edit</button>`
+    postDisplay.appendChild(newBlogPost)
+    buttonPressed ++
 }
 
 postDisplay.addEventListener('click', (event) => {
@@ -63,6 +81,22 @@ if (event.target.classList.contains('remove-from-list')) {
     postDisplay.removeChild(blogPost);
     posts.splice(blogPostIndex, 1)
 } else if(event.target.classList.contains("edit")){
-    alert("edit button pressed");
+    modalUpdate.style.display = "block";
+    titleModal.value = posts[blogPostIndex].title
+    bodyModal.value = posts[blogPostIndex].body
+    postDisplay.removeChild(blogPost);
+    posts.splice(blogPostIndex, 1)
 }
 });
+
+    updateBtn.addEventListener("click", (event)=>{
+    if(event.target.classList.contains('updateBtn')){
+        event.preventDefault()
+    }
+    if (modalForm.checkValidity()){
+        updateBlogPost()
+        alert("Post updated!")
+        modalUpdate.style.display = 'none'
+        console.log(posts)
+}
+})
