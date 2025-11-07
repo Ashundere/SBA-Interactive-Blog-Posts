@@ -14,7 +14,7 @@ const template = document.getElementById("template")
 const postDisplay = document.getElementById("blog-posts-display")
 const modalUpdate = document.getElementById("modalForm")
 const updateBtn = document.getElementById("updateButton")
-
+const formHalf = document.getElementById("form-half")
 
 buttonPressed = 0
 
@@ -34,7 +34,6 @@ submitBtn.addEventListener("click",function(event){
     }
     if (blogForm.checkValidity()){
         alert("Form Submitted Successfully")
-        console.log(posts)
         createBlogPost()
     }
 
@@ -48,6 +47,7 @@ const createBlogPost =()=>{
         id: buttonPressed
     }
     posts.push(postObject)
+    savePosts(posts)
     const newBlogPost = document.createElement("div")
     newBlogPost.setAttribute("id", buttonPressed)
     const blogPostIndex = posts.findIndex(postObject => postObject.id == newBlogPost.id)
@@ -71,6 +71,7 @@ const updateBlogPost =()=>{
     newBlogPost.innerHTML = `${posts[blogPostIndex].title}:<br>${posts[blogPostIndex].body}<br><button class="remove-from-list">Delete</button> <button class="edit">Edit</button>`
     postDisplay.appendChild(newBlogPost)
     buttonPressed ++
+    savePosts(posts)
 }
 
 postDisplay.addEventListener('click', (event) => {
@@ -82,6 +83,8 @@ if (event.target.classList.contains('remove-from-list')) {
     posts.splice(blogPostIndex, 1)
 } else if(event.target.classList.contains("edit")){
     modalUpdate.style.display = "block";
+    formHalf.style.filter = 'blur(5px)'
+    postDisplay.style.filter = 'blur(5px)'
     titleModal.value = posts[blogPostIndex].title
     bodyModal.value = posts[blogPostIndex].body
     postDisplay.removeChild(blogPost);
@@ -97,6 +100,41 @@ if (event.target.classList.contains('remove-from-list')) {
         updateBlogPost()
         alert("Post updated!")
         modalUpdate.style.display = 'none'
-        console.log(posts)
+        formHalf.style.filter = 'none'
+        postDisplay.style.filter = 'none'
 }
+})
+
+const savePosts = arr =>{
+    let savedPosts;
+    try {
+        savedPosts = JSON.parse(localStorage.getItem('savedPosts'))
+    } catch (error) {
+        console.error('Error parsing items from localStorage', e)
+        savedPosts = null;
+    }
+    for(let i=0; i <= arr.length; i++){
+        savedPosts.push(arr[i])
+    }
+    localStorage.setItem('savedPosts', JSON.stringify(savedPosts))
+    console.log(localStorage.getItem('savedPosts'))
+}
+const recollection =()=>{
+    let recall;
+    try {
+        recall = JSON.parse(localStorage.getItem('savedPosts'))
+    } catch (error) {
+        console.error('Error parsing items from localStorage', e)
+        recall = null;
+    }
+    for(let i=0; i <= recall.length; i++){
+    const newBlogPost = document.createElement("div")
+    newBlogPost.setAttribute("id", recall[i].id)
+    newBlogPost.innerHTML = `${recall[i].title}:<br>${recall[i].body}<br><button class="remove-from-list">Delete</button> <button class="edit">Edit</button>`
+    postDisplay.appendChild(newBlogPost)
+    }
+}
+
+window.addEventListener("load", (event)=>{
+    recollection()
 })
