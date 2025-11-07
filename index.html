@@ -9,15 +9,29 @@
     <title>Interactive Blog</title>
 </head>
 <body>
-    <form>
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Enter Title" required>
+    <container class="form-half">
+        <form>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Enter Title" required>
+            </div>
+            <div class="form-group">
+                <label for="bodyText">Content</label>
+                <textarea class="form-control" id="bodyText" rows="3" placeholder="What did you want to say?" required></textarea>
+            </div>
+        </form>
+    </container>
+    <container class="post-half">
+        <div class="blog-posts-display">
+            <div class="card" class="shadow-lg p-3 mb-5 bg-body rounded" style="display: none;">
+                <div class="card-body">
+                    <h5 class="card-title">Example Title</h5>
+                    <p class="card-text">Example card text</p>
+                    <button class="editBtn">Edit</button>
+                    <button class="deleteBtn">Delete</button>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="bodyText"></label>
-            <textarea class="form-control" id="bodyText" rows="3" placeholder="What did you want to say?" required></textarea>
-        </div>
-    </form>
+    </container>
 </body>
 </html>
