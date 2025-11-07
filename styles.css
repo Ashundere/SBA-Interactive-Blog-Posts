@@ -1,0 +1,11 @@
+
+
+body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #0B3552;
+    background: linear-gradient(90deg, rgba(11, 53, 82, 1) 0%, rgba(11, 112, 189, 1) 49%, rgba(11, 53, 82, 1) 100%);
+}
+
+
+
