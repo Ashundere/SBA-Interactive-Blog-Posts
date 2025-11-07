@@ -28,3 +28,22 @@ form{
     grid-row-start: 2;
 }
 
+h2{
+    text-align: center;
+}
+#blog-posts-display{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+#blog-posts-display div{
+    background-color: rgb(5, 5, 41);
+    color:rgb(214, 225, 243);
+    min-height: 100px;
+    height: fit-content;
+    min-width:900px;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: #0B3552;
+}
