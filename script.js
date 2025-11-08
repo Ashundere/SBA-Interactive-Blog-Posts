@@ -1,4 +1,4 @@
-// posts = [];
+
 const titleInput = document.getElementById("title");
 const titleInputError = document.getElementById("titleInputError");
 const titleModal = document.getElementById("titleModal");
@@ -59,10 +59,8 @@ const createBlogPost = () => {
     title: titleInput.value,
     body: bodyInput.value,
   };
-
-  console.log(postObject);
   recall.push(postObject);
-  console.log("initial recall: ", recall)
+ 
   
   localStorage.setItem("savedPosts", JSON.stringify(recall));
   const newBlogPost = document.createElement("div");
@@ -74,7 +72,6 @@ const createBlogPost = () => {
   postDisplay.appendChild(newBlogPost);
   bodyInput.value = "";
   titleInput.value = "";
-  console.log("postObjID:", postObject.id, "newBlogID: ", newBlogPost.id);
     incObjectCounter()
 };
 
@@ -93,18 +90,13 @@ const updateBlogPost = () => {
 postDisplay.addEventListener("click", event => {
   if (event.target.classList.contains("remove-from-list")) {
     const postId = event.target.closest("div").id;
-    console.log(postId);
     const blogPost = document.getElementById(`${postId}`);
-    console.log(blogPost);
     const blogPostIndex = recall.findIndex(
         (postObject) => postObject.id == postId
     );
-    console.log(blogPostIndex);
-    console.log("deleting:", blogPostIndex, recall)
     postDisplay.removeChild(blogPost);
     recall.splice(blogPostIndex, 1);
     localStorage.setItem("savedPosts", JSON.stringify(recall));
-    console.log("updated recall:", blogPostIndex, recall)
 
   } else if (event.target.classList.contains("edit")) {
     const postId = event.target.closest("div").id;
@@ -115,8 +107,6 @@ postDisplay.addEventListener("click", event => {
     blurBackground()
     titleModal.value = recall[blogPostIndex].title;
     bodyModal.value = recall[blogPostIndex].body;
-    console.log(recall)
-    console.log(recall[blogPostIndex])
     recall.splice(blogPostIndex, 1);
 
     postDisplay.removeChild(blogPost);
@@ -138,8 +128,6 @@ const unBlurBackground =()=> {
     postDisplay.style.filter = "none";
 }
 updateBtn.addEventListener("click", event => {
-    console.log(titleModal.value, bodyModal.value)
-    console.log('in updateBtn: ', recall)
   if (modalForm.checkValidity()) {
     event.preventDefault();
     updateBlogPost();
@@ -159,8 +147,6 @@ const recollection = () => {
 
 window.addEventListener("load", (event) => {
   recollection();
-  clearBtn.style.display = "block";
-
 });
 
 clearBtn.addEventListener("click", (event) => {

@@ -34,7 +34,7 @@ h2{
 #blog-posts-display{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     gap: 10px;
 }
 #blog-posts-display div{
@@ -47,7 +47,6 @@ h2{
     padding: 5px;
     box-shadow: #0B3552;
 }
-
 .modalForm{
   position: absolute;
   left: 50%;
