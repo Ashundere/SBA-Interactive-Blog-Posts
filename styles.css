@@ -36,6 +36,7 @@ h2{
     flex-direction: column;
     justify-content: center;
     gap: 10px;
+    color:rgb(214, 225, 243);
 }
 #blog-posts-display div{
     background-color: rgb(5, 5, 41);
