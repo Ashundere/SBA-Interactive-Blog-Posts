@@ -60,8 +60,6 @@ const createBlogPost = () => {
     body: bodyInput.value,
   };
   recall.push(postObject);
- 
-  
   localStorage.setItem("savedPosts", JSON.stringify(recall));
   const newBlogPost = document.createElement("div");
   newBlogPost.setAttribute("id", postObject.id);
@@ -87,31 +85,6 @@ const updateBlogPost = () => {
   window.location.reload()
 };
 
-postDisplay.addEventListener("click", event => {
-  if (event.target.classList.contains("remove-from-list")) {
-    const postId = event.target.closest("div").id;
-    const blogPost = document.getElementById(`${postId}`);
-    const blogPostIndex = recall.findIndex(
-        (postObject) => postObject.id == postId
-    );
-    postDisplay.removeChild(blogPost);
-    recall.splice(blogPostIndex, 1);
-    localStorage.setItem("savedPosts", JSON.stringify(recall));
-
-  } else if (event.target.classList.contains("edit")) {
-    const postId = event.target.closest("div").id;
-    const blogPost = document.getElementById(`${postId}`);
-    const blogPostIndex = recall.findIndex(
-      (postObject) => postObject.id == postId
-    );
-    blurBackground()
-    titleModal.value = recall[blogPostIndex].title;
-    bodyModal.value = recall[blogPostIndex].body;
-    recall.splice(blogPostIndex, 1);
-
-    postDisplay.removeChild(blogPost);
-  }
-});
 
 const incObjectCounter=()=>{
     objectCounter++
@@ -140,10 +113,36 @@ const recollection = () => {
   for (let i = 0; i <= recall.length; i++) {
     const newBlogPost = document.createElement("div");
     newBlogPost.setAttribute("id", recall[i].id);
-    newBlogPost.innerHTML = `${recall[i].title}:<br>${recall[i].body}<br><button class="remove-from-list">Delete</button> <button class="edit">Edit</button>`;
+    newBlogPost.innerHTML = `${recall[i].title}:<br>${recall[i].body}<br><button class="remove-from-list" aria-label="Delete">Delete</button> <button class="edit" aria-label="Edit">Edit</button>`;
     postDisplay.appendChild(newBlogPost);
   }
 };
+
+
+postDisplay.addEventListener("click", event => {
+  if (event.target.classList.contains("remove-from-list")) {
+    const postId = event.target.closest("div").id;
+    const blogPost = document.getElementById(`${postId}`);
+    const blogPostIndex = recall.findIndex(
+        (postObject) => postObject.id == postId
+    );
+    postDisplay.removeChild(blogPost);
+    recall.splice(blogPostIndex, 1);
+    localStorage.setItem("savedPosts", JSON.stringify(recall));
+
+  } else if (event.target.classList.contains("edit")) {
+    const postId = event.target.closest("div").id;
+    const blogPost = document.getElementById(`${postId}`);
+    const blogPostIndex = recall.findIndex(
+      (postObject) => postObject.id == postId
+    );
+    blurBackground()
+    titleModal.value = recall[blogPostIndex].title;
+    bodyModal.value = recall[blogPostIndex].body;
+    recall.splice(blogPostIndex, 1);
+    postDisplay.removeChild(blogPost);
+  }
+});
 
 window.addEventListener("load", (event) => {
   recollection();

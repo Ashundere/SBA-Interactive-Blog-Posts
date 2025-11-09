@@ -8,6 +8,17 @@ body{
 
 }
 
+input:focus:invalid {
+      background-color: rgb(216, 194, 194);
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+      outline: none;
+}
+
+textarea:focus:invalid {
+      background-color: rgb(216, 194, 194);
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+      outline: none;
+}
 .form-half{
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
